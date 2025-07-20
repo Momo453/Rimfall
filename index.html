@@ -282,7 +282,37 @@
         #region-description-container .data-log.active {
             display: block; /* Show active description */
         }
+        /* Stili per Immagini rimfall */
+        .rimfall-image {
+            display: block; /* Per centrare l'immagine */
+            max-width: 100%; /* Si adatta al contenitore */
+            height: auto; /* Mantiene le proporzioni */
+            margin: 25px auto; /* Spazio sopra e sotto, centrata */
+            border: 2px solid var(--color-accent-red); /* Bordo rosso scuro */
+            box-shadow: 0 0 15px rgba(171, 60, 60, 0.4), inset 0 0 10px rgba(171, 60, 60, 0.2); /* Ombra esterna e interna rossa */
+            filter: brightness(0.95); /* Leggera attenuazione per un look più antico */
+            transition: all 0.3s ease; /* Transizione per effetti hover futuri */
+        }
 
+        .rimfall-image-framed {
+            display: block;
+            max-width: 90%; /* Leggermente più piccola per dare spazio al bordo visivo */
+            height: auto;
+            margin: 20px auto;
+            padding: 10px; /* Spazio tra immagine e bordo */
+            background-color: var(--color-background-dark); /* Sfondo scuro all'interno del bordo */
+            border: 1px solid var(--color-accent-gold); /* Bordo esterno oro */
+            box-shadow: 0 0 12px rgba(199, 164, 117, 0.3), inset 0 0 8px rgba(199, 164, 117, 0.2); /* Ombre oro */
+            filter: saturate(0.9); /* Leggera desaturazione */
+            transition: all 0.3s ease;
+        }
+
+        /* Effetti hover (opzionali) */
+        .rimfall-image:hover, .rimfall-image-framed:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 20px rgba(171, 60, 60, 0.6), inset 0 0 12px rgba(171, 60, 60, 0.3);
+            filter: brightness(1.05);
+        }
 
         /* For print-specific adjustments (optional but recommended for PDF generation) */
         @media print {
@@ -464,7 +494,7 @@
                 <p>Rimfall è un mondo plasmato da forze enigmatiche e pericoli intrinseci, dove la comprensione della realtà è una sfida costante. Qui di seguito sono delineate le fondamenta che sorreggono e spesso minacciano l'esistenza stessa nel supercontinente di Aurel.</p>
 
                 <h3>La Variazione: Trama Mutevole della Magia</h3>
-                <p>In questa ambientazione, la magia non è una forza prevedibile o un sistema codificato, ma un fenomeno naturale capriccioso e potente, conosciuto dagli Incantatori Arcani come la <strong>Variazione</strong>. Essa manifesta la sua influenza alterando localmente le leggi che normalmente governano la realtà. Un fiume potrebbe scorrere all'insù per un giorno, le ombre potrebbero prendere vita o il ferro potrebbe ammorbidirsi come argilla. Nel corso dei secoli, studiosi e mistici hanno tentato di comprendere e manipolare questi mutamenti, sviluppando tecniche arcane per produrre effetti desiderati.</p>
+                <p>In questa ambientazione, la magia non è una forza prevedibile o un sistema codificato, ma un fenomeno naturale capriccioso e potente, conosciuto dagli Incantatori Arcani come la <strong>Variazione</strong>. Essa manifesta la sua influenza alterando localmente le leggi che normalmente governano la realtà. Un fiume potrebbe scorrere all'insù per un giorno, le ombre potrebbero prendere vita o il ferro potrebbe ammorbidirsi come argilla. Nel corso dei secoli, studiosi e mistici hanno tentato di comprendere e manipolare questi mutamenti, sviluppando tecniche rimfall per produrre effetti desiderati.</p>
                 <p>Tuttavia, la magia di Rimfall rimane criptica e incredibilmente difficile da gestire. Spingersi oltre i limiti conosciuti, o tentare di forzare la Variazione a scopi troppo ambiziosi, ha storicamente condotto a catastrofi di proporzioni inimmaginabili, stravolgendo intere regioni e plasmando il paesaggio con anomalie permanenti. La vera saggezza risiede nel rispetto e nella cautela di fronte a questa forza imprevedibile.</p>
 
                 <h3>Divinità e Fenomeni Ultraterreni</h3>
@@ -491,6 +521,7 @@
 
         <div class="section">
             <h2>Geografia di Rimfall</h2>
+                        <img src="mappa_aurel.jpeg" alt="Mappa del supercontinente di Aurel" class="rimfall-image">
             <div class="data-log">
                 <h4>Coordinate di Navigazione: Mappa di Aurel</h4>
                 <p>Il mondo di Rimfall è dominato dal supercontinente di <strong>Aurel</strong>, una massa terrestre vasta e complessa. Esplorarne le regioni è una sfida che richiede tenacia e astuzia, con pericoli unici in ogni macroregione.</p>
