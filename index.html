@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Grande Codex dell'Avventuriero - Rimfall Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Roboto+Condensed:300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for easy theme adjustments */
+        :root {
+            --color-background-dark: #1a1a1e; /* Dark, almost black background */
+            --color-background-light: #2c2c34; /* Slightly lighter sections */
+            --color-text-primary: #e0e0e0; /* Light gray for main text */
+            --color-text-secondary: #a0a0a0; /* Muted gray for secondary text */
+            --color-accent-gold: #c7a475; /* Aged gold/brass for accents */
+            --color-accent-red: #8b2b2b; /* Muted, deep red */
+            --color-accent-red-light: #ab3c3c; /* Slightly brighter red for glow */
+            --color-accent-red-dark: #5e1c1c; /* Darker red for subtle shadows/borders */
+            --color-border-dark: #40404a; /* Darker borders */
+        }
+
+        /* Basic Reset & Body Styling */
+        body {
+            font-family: 'Roboto Condensed', sans-serif; /* Modern, clean, slightly industrial */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-background-dark);
+            color: var(--color-text-primary);
+            font-size: 10.5pt;
+        }
+
+        /* Container for the PDF content */
+        .pdf-container {
+            width: 210mm; /* A4 width */
+            min-height: 297mm; /* A4 height */
+            margin: 20mm auto; /* Center the page with margins */
+            background-color: var(--color-background-light);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Stronger, darker shadow */
+            padding: 25mm 20mm; /* Internal padding */
+            box-sizing: border-box; /* Include padding in the width/height */
+            position: relative;
+            overflow: hidden; /* To contain any absolute elements */
+            border: 2px solid var(--color-border-dark); /* Subtle page border */
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--color-accent-gold); /* Gold line separator */
+        }
+
+        header h1 {
+            font-family: 'Cinzel Decorative', serif; /* Ornate, yet sharp for titles */
+            font-size: 3.5em;
+            color: var(--color-accent-gold);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(199, 164, 117, 0.5); /* Subtle glow effect */
+        }
+
+        header h2 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.3em;
+            color: var(--color-text-secondary);
+            margin-top: 10px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        /* Horizontal Rule (more industrial) */
+        hr {
+            border: none;
+            border-top: 1px dashed var(--color-border-dark); /* Dashed line for industrial feel */
+            margin: 30px 0;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+
+        .section h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2em;
+            color: var(--color-accent-gold);
+            border-bottom: 1px solid var(--color-accent-red-light); /* Red glow for main section title */
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 5px rgba(171, 60, 60, 0.4); /* Subtle red glow */
+        }
+
+        .section h3 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.5em;
+            color: var(--color-text-primary);
+            margin-bottom: 15px;
+            border-left: 3px solid var(--color-accent-gold); /* Side border for emphasis */
+            padding-left: 10px;
+        }
+
+        /* Paragraph Styling */
+        p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+
+        /* List Styling */
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 2em;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+            color: var(--color-text-primary);
+        }
+
+        /* Callout/Boxed Text (rimfall Data Log) */
+        .data-log {
+            background-color: var(--color-background-dark); /* Darker background */
+            border: 1px solid var(--color-accent-red); /* Red border for data */
+            padding: 18px;
+            margin: 25px 0;
+            box-shadow: inset 0 0 15px rgba(171, 60, 60, 0.2), 0 0 8px rgba(0, 0, 0, 0.5); /* Inner glow + outer shadow */
+            border-radius: 3px;
+        }
+
+        .data-log h4 {
+            font-family: 'Roboto Condensed', sans-serif;
+            color: var(--color-accent-red-light);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed var(--color-accent-red-dark);
+            padding-bottom: 5px;
+        }
+
+        .data-log p {
+            color: var(--color-text-secondary);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            background-color: var(--color-background-dark);
+            border: 1px solid var(--color-border-dark);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            border: 1px solid var(--color-border-dark);
+            padding: 10px 15px;
+            text-align: left;
+            color: var(--color-text-primary);
+        }
+
+        th {
+            background-color: var(--color-background-dark);
+            color: var(--color-accent-gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--color-accent-red); /* Red underline for headers */
+        }
+
+        tr:nth-child(even) {
+            background-color: #242428; /* Slightly different row background */
+        }
+        tr:hover {
+            background-color: #383840; /* Subtle hover for web (won't show in PDF) */
+        }
+
+        /* Footer (Page Numbers) */
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.85em;
+            border-top: 1px dashed var(--color-border-dark);
+            padding-top: 10px;
+        }
+
+        /* rimfall-Specific Overlays/Decorations (Conceptual - requires assets) */
+        /* These would be background images of gears, pipes, circuitry, etc. */
+        .rimfall-overlay {
+            position: absolute;
+            opacity: 0.1; /* Very subtle */
+            z-index: 0; /* Behind content */
+        }
+
+        .rimfall-overlay.top-left {
+            top: 0;
+            left: 0;
+            width: 150px; /* Adjust size */
+            height: 150px;
+            /* background-image: url('path/to/rimfall-gear-top-left-red.png'); */
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .rimfall-overlay.bottom-right {
+            bottom: 0;
+            right: 0;
+            width: 150px; /* Adjust size */
+            height: 150px;
+            /* background-image: url('path/to/rimfall-circuit-bottom-right-red.png'); */
+            background-size: contain;
+            background-repeat: no-repeat;
+            transform: rotate(180deg); /* Flip if needed */
+        }
+
+        /* Styles for Interactive Geography */
+        .interactive-list > li { /* Apply to direct children LI of interactive-list */
+            cursor: pointer;
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            background-color: var(--color-background-dark);
+            border: 1px solid var(--color-border-dark);
+            border-left: 3px solid var(--color-accent-gold); /* Gold accent for top-level interactive items */
+            transition: background-color 0.3s ease, border-left-color 0.3s ease;
+            list-style: none; /* Remove default list bullet */
+        }
+
+        .interactive-list > li:hover {
+            background-color: #383840; /* Slightly lighter on hover */
+            border-left-color: var(--color-accent-gold); /* Gold accent on hover */
+        }
+
+        .interactive-list > li.active {
+            background-color: #3d3d45; /* Active item background */
+            border-left-color: var(--color-accent-gold); /* Gold accent for active */
+            box-shadow: inset 0 0 8px rgba(199, 164, 117, 0.2);
+        }
+
+        .sub-list {
+            display: none; /* Hidden by default */
+            padding-left: 20px;
+            margin-top: 5px;
+            border-left: 1px dashed var(--color-border-dark);
+        }
+
+        .sub-list li { /* Styles for sub-list items */
+            background-color: transparent; /* No background for sub-list items */
+            border: none;
+            padding: 4px 0;
+            margin-bottom: 2px;
+            list-style: disc; /* Use a simple bullet for sub-list */
+            color: var(--color-text-secondary);
+            cursor: pointer; /* Make sub-list items clickable too */
+            transition: color 0.2s ease;
+        }
+        .sub-list li:hover {
+            color: var(--color-text-primary);
+        }
+        .sub-list li.active {
+            color: var(--color-accent-red-light); /* Highlight active sub-list item */
+        }
+
+        #region-description-container {
+            margin-top: 25px; /* Space between list and description */
+            min-height: 150px; /* Ensure space for description */
+        }
+        #region-description-container .data-log {
+            display: none; /* All descriptions hidden by default */
+        }
+        #region-description-container .data-log.active {
+            display: block; /* Show active description */
+        }
+
+
+        /* For print-specific adjustments (optional but recommended for PDF generation) */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .pdf-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 25mm 20mm;
+                border: none; /* Remove border for print */
+            }
+            img {
+                page-break-inside: avoid;
+            }
+            p {
+                orphans: 3;
+                widows: 3;
+            }
+            h2, h3 {
+                page-break-after: avoid;
+            }
+            .section {
+                page-break-before: always; /* Start new major sections on a new page */
+            }
+            .footer {
+                position: fixed;
+                bottom: 15mm;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: var(--color-text-secondary);
+                font-size: 0.85em;
+                border-top: none; /* No border for print footer */
+                padding-top: 0;
+            }
+            /* Make interactive content visible for print if desired, or hide it */
+            .sub-list {
+                display: block !important; /* Force sub-lists to be visible when printing */
+            }
+            .interactive-list > li.active {
+                background-color: var(--color-background-dark); /* Reset background for print */
+                box-shadow: none;
+            }
+            #region-description-container .data-log {
+                display: block !important; /* Force all descriptions to be visible when printing */
+            }
+            #region-description-container {
+                 margin-top: 15px; /* Adjust margin for print */
+                 min-height: auto; /* Remove min-height for print */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-container">
+        <div class="rimfall-overlay top-left"></div>
+        <div class="rimfall-overlay bottom-right"></div>
+
+        <header>
+            <h1>Il Grande Codex dell'Avventuriero</h1>
+            <h2>Guida del giocatore a Rimfall</h2>
+        </header>
+
+        <hr>
+
+        <div class="section">
+            <h2>Prefazione: Benvenuti a Rimfall</h2>
+            <p>Dimenticate gli eroi scintillanti e la magia onnipotente. Rimfall è un mondo fantasy survivalista dove la realtà colpisce duro, il progresso è lento e la sopravvivenza è una lotta quotidiana. Ogni decisione ha un peso, ogni passo può condurre alla rovina o a una fragile vittoria.</p>
+            <p>Esplorerete un mosaico di biomi selvaggi: dalle foreste pluviali soffocanti ai deserti freddi desolati, dalle montagne imponenti agli abissi marini e ai cunicoli sotterranei. Ogni ambiente presenta sfide uniche e spietate.</p>
+            <p>La magia qui è rara, difficile e pericolosa. È una forza misteriosa, non una soluzione a portata di mano. I veri avventurieri spesso sono mercanti che navigano rotte insidiose, connettendo piccoli villaggi isolati e le poche città portuali. Non ci sono sentieri predefiniti, solo un orizzonte vasto e implacabile, pronto a essere esplorato e plasmato dalle vostre azioni.</p>
+            <p>Preparatevi a un'avventura dove ogni moneta è sudata, ogni viaggio è un'incognita e ogni piccolo successo è una vittoria conquistata con fatica. Benvenuti a Rimfall, dove il fango si attacca agli stivali e la speranza si aggrappa alla tenacia.</p>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2>Regolamento</h2>
+            <h3>Creazione Personaggio</h3>
+            <ul>
+                <li>Sistema D&D5e 2014</li>
+                <li>Tutti i manuali ufficiali sono accettati (2014)</li>
+                <li>Manuali per le razze: PHB14, MTF, VRGR, MPMM</li>
+                <li>Personaggi di livello 3</li>
+                <li>Point Buy 27 per le caratteristiche (massimo 15 per singola caratteristica)</li>
+                <li>Punti ferita medi dopo il livello 1</li>
+                <li>Un talento extra per il background al livello 1 (se il background non ha già talenti, il talento non deve avere prerequisiti o aumentare punteggi caratteristica)</li>
+                <li>Equipaggiamento standard oppure oro di partenza</li>
+                <li>Tutti i personaggi sono competenti con i colpi senz'armi. Quando attaccano con un colpo senz'armi possono decidere di fare danno, afferrare o spingere prono un nemico.</li>
+            </ul>
+
+            <h3>Varianti</h3>
+            <ul>
+                <li>Regola variante dell'ingombro</li>
+                <li>Regola variante critici migliorati (vengono raddoppiati anche i modificatori)</li>
+                <li>Le pozioni possono essere usate tramite Azione Bonus; darla a un altro compagno richiederà un'intera Azione.</li>
+                <li>Si ottiene ispirazione agendo coerentemente ai tratti di personalità, ideali, legami e difetti del personaggio. Si può anche ottenere trovando soluzioni creative a un problema o superando un ostacolo legato al personaggio.</li>
+                <li>L'ispirazione può essere trasferita a un altro giocatore.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2>Homebrew: Armi da Fuoco</h2>
+            <div class="data-log">
+                <h4>Armi Speciali: Manufatti a Polvere</h4>
+                <p>Le armi da fuoco sono manufatti complessi e la loro tecnologia è in costante evoluzione. Richiedono manutenzione e una comprensione profonda dei loro meccanismi. A differenza delle armi tradizionali, i proiettili non sono sempre facili da reperire o da produrre, e ogni colpo deve essere conteggiato con saggezza.</p>
+                <p>Queste regole integrano le armi da fuoco nel sistema di combattimento di Rimfall, mantenendo il loro impatto devastante ma sottolineandone la complessità e le limitazioni in un mondo dove la tecnologia è rara e preziosa.</p>
+
+                <h3>Tabella Armi da Fuoco</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Costo (MO)</th>
+                            <th>Danno</th>
+                            <th>Peso</th>
+                            <th>Proprietà</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pistola a Tubo</td>
+                            <td>125</td>
+                            <td>1d10 perforante</td>
+                            <td>3 libbre</td>
+                            <td>Munizioni (1 colpo), Caricare (1), Gittata (30/90)</td>
+                        </tr>
+                        <tr>
+                            <td>Moschetto</td>
+                            <td>250</td>
+                            <td>1d12 perforante</td>
+                            <td>10 libbre</td>
+                            <td>A due mani, Munizioni (1 colpo), Caricare (1), Gittata (80/240)</td>
+                        </tr>
+                        <tr>
+                            <td>Pistola a Ripetizione</td>
+                            <td>500</td>
+                            <td>1d8 perforante</td>
+                            <td>4 libbre</td>
+                            <td>Munizioni (4 colpi), Caricare (1), Gittata (40/120)</td>
+                        </tr>
+                        <tr>
+                            <td>Moschetto a Ripetizione</td>
+                            <td>1000</td>
+                            <td>1d10 perforante</td>
+                            <td>12 libbre</td>
+                            <td>A due mani, Munizioni (6 colpi), Caricare (1), Gittata (100/300)</td>
+                        </tr>
+                        <tr>
+                            <td>Archibugio</td>
+                            <td>750</td>
+                            <td>2d6 perforante</td>
+                            <td>8 libbre</td>
+                            <td>Munizioni (2 colpi), Caricare (1), Cono (15ft), Gittata (30/60)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Regole Speciali per le Armi da Fuoco</h3>
+                <ul>
+                    <li><strong>Competenza:</strong> Per usare un'arma da fuoco, devi avere competenza con le armi da fuoco o marziali. Alcune classi potrebbero conferire competenza specifica.</li>
+                    <li><strong>Munizioni:</strong> Ogni tipo di arma da fuoco usa un tipo specifico di munizioni (es. Proiettili di Pistola, Proiettili di Archibugio). Le munizioni devono essere acquistate o create.</li>
+                    <li><strong>Ricarica (Caricare X):</strong> Un'arma con la proprietà "Caricare (X)" può sparare X colpi prima di dover essere ricaricata. Ricaricare richiede un'azione. Se la proprietà è solo "Caricare (1)", l'arma deve essere ricaricata dopo ogni colpo.</li>
+                    <li><strong>Malfunzionamento (Opzionale):</strong> Il Dungeon Master può decidere che su un tiro di attacco naturale di 1, l'arma si inceppa. Il personaggio deve spendere un'Azione per tentare di disincepparla (CD 10 Intelligenza o Destrezza).</li>
+                    <li><strong>Cono (Xft):</strong> Invece di un attacco singolo, l'arma spara un cono di X piedi. Ogni creatura nell'area deve effettuare un tiro salvezza su Destrezza (CD 13 o 8 + bonus di competenza + modificatore di Destrezza/Intelligenza dell'utente, a scelta del DM) o subire i danni pieni, o la metà dei danni in caso di successo.</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2>Geografia di Rimfall</h2>
+            <div class="data-log">
+                <h4>Coordinate di Navigazione: Mappa di Aurel</h4>
+                <p>Il mondo di Rimfall è dominato dal supercontinente di <strong>Aurel</strong>, una massa terrestre vasta e complessa. Esplorarne le regioni è una sfida che richiede tenacia e astuzia, con pericoli unici in ogni macroregione.</p>
+
+                <ul class="interactive-list">
+                    <li data-region-id="aurel-continent">Aurel
+                        <ul id="aurel-sublist" class="sub-list">
+                            <li data-region-id="ijo">Ijo</li>
+                            <li data-region-id="pigosthym">Pigosthym</li>
+                            <li data-region-id="chenguo">Chen Guo</li>
+                            <li data-region-id="gorta">Gorta</li>
+                            <li data-region-id="lorg">Lorg</li>
+                            <li data-region-id="shizia">Shizia</li>
+                            <li data-region-id="rzhis">Rzhis</li>
+                            <li data-region-id="bhurk">Bhurk</li>
+                        </ul>
+                    </li>
+                    </ul>
+            </div>
+
+            <div id="region-description-container">
+                <div id="description-chenguo" class="data-log region-description">
+                    <h4>Il Deserto di Chen Guo: Un Paesaggio Vulcanico e Alieno</h4>
+                    <p>Il deserto di Chen Guo è un luogo che sfida ogni immaginazione, un deserto freddo e vulcanico che sembra strappato da un altro pianeta. Le sue vaste distese sono dominate da un paesaggio quasi alieno, dove crateri spenti e picchi vulcanici si ergono minacciosi sotto un cielo spesso plumbeo. La terra stessa è una tavolozza di colori inaspettati: neri profondi di roccia lavica, rossi e ocra di minerali ferrosi, e a tratti, strani verdi sulfurei che indicano la persistente attività geotermica.</p>
+                    <p>Nonostante le temperature gelide, che possono scendere ben al di sotto dello zero, il sottosuolo ribolle. Fumarole silenziose rilasciano vapori e gas, mentre geyser sporadici eruttano colonne di acqua e fango bollente, dipingendo l'aria con pennellate di vapore. La vita, in questo ambiente ostile, è quasi inesistente; solo licheni resistenti e rare formazioni muschiose riescono ad aggrapparsi alle rocce, tingendo qua e là il paesaggio di tenui sfumature di verde.</p>
+                    <h3>Il Kaze e le Piogge Acide</h3>
+                    <p>Ma la vera minaccia del Chen Guo si manifesta durante il <strong>Kaze</strong>, la stagione dei venti. In questo periodo, fumi tossici e polveri sottili ricchi di zolfo e altre sostanze chimiche, provenienti dalle profondità vulcaniche del deserto, vengono sollevati e trasportati verso oriente da correnti implacabili. Questi venti trascinano la nube velenosa attraverso l'intero supercontinente, trasformando la pioggia in una pioggia acida corrosiva.</p>
+                    <p>Le conseguenze sono devastanti: la vegetazione brucia, i fiumi si inquinano, e persino le strutture rocciose vengono lentamente erose. Per gli abitanti del supercontinente, il Kaze non è solo una stagione di venti, ma un periodo di paura e devastazione, un promemoria costante della furia inarrestabile e delle emanazioni tossiche del deserto vulcanico di Chen Guo.</p>
+                </div>
+                <div id="description-placeholder" class="data-log region-description active">
+                    <h4>Seleziona una Macroregione per i Dettagli</h4>
+                    <p>Clicca su una macroregione per visualizzare le informazioni geografiche e le peculiarità ambientali.</p>
+                </div>
+                <div id="description-ijo" class="data-log region-description">
+                    <h4>Ijo: Le Fitte Foreste Umide e Nebbiose</h4>
+                    <p>Ijo è una terra di foreste primordiali, perennemente avvolte in una nebbia densa e umida. Alberi giganteschi, dalle chiome così fitte da oscurare il sole, creano una volta naturale dove la luce fatica a penetrare, rendendo il sottobosco un labirinto di ombre e umidità. L'aria è satura del profumo di terra bagnata, funghi e muschio, e il suono costante del gocciolio dell'acqua è l'unica melodia che rompe il silenzio opprimente.</p>
+                    <p>Il terreno è cedevole, spesso una palude nascosta da uno strato di foglie marce e radici intricate. Numerosi corsi d'acqua e pozze stagnanti punteggiano il paesaggio, spesso dimora di creature anfibie e insetti giganti. La flora è lussureggiante e spesso velenosa, con piante rampicanti che si attorcigliano attorno ai tronchi e funghi bioluminescenti che illuminano fiocamente il cammino nelle ore più buie.</p>
+                    <h3>La Fauna di Ijo</h3>
+                    <p>La vita animale è adattata a questo ambiente ostile: ragni di dimensioni innaturali tendono tele appiccicose tra gli alberi, serpenti velenosi strisciano tra le radici e uccelli rapaci silenziosi volano tra le cime degli alberi, cacciando le poche creature di terra. I predatori più grandi, come lucertole giganti e felini dalle zanne affilate, sono maestri del mimetismo, rendendo ogni passo un rischio.</p>
+                    <p>Attraversare Ijo è un'impresa ardua. I sentieri sono inesistenti o rapidamente inghiottiti dalla vegetazione, e l'orientamento è quasi impossibile a causa della nebbia e della mancanza di punti di riferimento visibili. Solo i più esperti esploratori o coloro che sono disposti ad affrontare i pericoli innominabili di questa giungla possono sperare di emergere dall'altra parte.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const aurelContinentLi = document.querySelector('li[data-region-id="aurel-continent"]');
+            const aurelSublist = document.getElementById('aurel-sublist');
+            const regionDescriptionContainer = document.getElementById('region-description-container');
+            const placeholderDescription = document.getElementById('description-placeholder');
+
+            // Gestione del click sul supercontinente "Aurel"
+            aurelContinentLi.addEventListener('click', (event) => {
+                // Previene che il click si propaghi alla sub-list se cliccato sull'elemento padre direttamente
+                if (event.target === aurelContinentLi) {
+                    // Chiude/apre la sublist
+                    if (aurelSublist.style.display === 'block') {
+                        aurelSublist.style.display = 'none';
+                        aurelContinentLi.classList.remove('active');
+                        // Quando si chiude la lista, mostra il placeholder e nascondi altre descrizioni
+                        showOnlyPlaceholder();
+                    } else {
+                        // Chiudi tutte le altre sublist e descrizioni prima di aprire questa
+                        document.querySelectorAll('.sub-list').forEach(list => {
+                            if (list.id !== aurelSublist.id) {
+                                list.style.display = 'none';
+                                list.parentElement.classList.remove('active');
+                            }
+                        });
+                        showOnlyPlaceholder(); // Mostra placeholder quando si apre la lista principale
+                        aurelSublist.style.display = 'block';
+                        aurelContinentLi.classList.add('active');
+                    }
+                }
+            });
+
+            // Gestione del click sulle macroregioni (event delegation sulla sublist)
+            aurelSublist.addEventListener('click', (event) => {
+                const clickedLi = event.target.closest('li[data-region-id]'); // Trova l'elemento LI più vicino con data-region-id
+                if (clickedLi && clickedLi.parentElement === aurelSublist) { // Assicurati che sia un elemento diretto della sublist
+                    const regionId = clickedLi.dataset.regionId;
+                    showRegionDescription(regionId);
+                }
+            });
+
+            function showRegionDescription(regionId) {
+                // Nascondi tutte le descrizioni e rimuovi 'active' dalle macroregioni
+                document.querySelectorAll('.region-description').forEach(desc => {
+                    desc.classList.remove('active');
+                });
+                document.querySelectorAll('.sub-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+
+                // Mostra la descrizione della regione selezionata
+                const descriptionToShow = document.getElementById('description-' + regionId);
+                if (descriptionToShow) {
+                    descriptionToShow.classList.add('active');
+                } else {
+                    // Se non c'è una descrizione specifica, mostra il placeholder
+                    showOnlyPlaceholder();
+                }
+
+                // Aggiungi la classe 'active' all'elemento <li> cliccato
+                const clickedLiInSublist = document.querySelector(`#aurel-sublist li[data-region-id="${regionId}"]`);
+                if (clickedLiInSublist) {
+                    clickedLiInSublist.classList.add('active');
+                }
+            }
+
+            function showOnlyPlaceholder() {
+                document.querySelectorAll('.region-description').forEach(desc => {
+                    desc.classList.remove('active');
+                });
+                document.querySelectorAll('.sub-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                if (placeholderDescription) {
+                    placeholderDescription.classList.add('active');
+                }
+            }
+
+            // Inizializzazione: Assicurati che il placeholder sia visibile all'inizio
+            showOnlyPlaceholder();
+
+            // Funzione per impostare i numeri di pagina nel footer (per l'anteprima web)
+            // Questo è un placeholder. Per una numerazione di pagina reale in PDF,
+            // ti affidi al browser o a strumenti esterni.
+            document.querySelector('.footer .page-number').textContent = '4';
+        });
+    </script>
+</body>
+</html>
